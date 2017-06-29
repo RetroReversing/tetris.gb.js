@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/amorri40/tetris.gb.js#readme",
   "dependencies": {
+    "json-human": "git+https://github.com/marianoguerra/json.human.js.git#0.1.1",
     "line-by-line": "^0.1.5",
     "lodash": "^4.17.4"
   }
