@@ -1,7 +1,5 @@
 var _ = require('lodash');
-var LineByLineReader = require('line-by-line'),
-    lr = new LineByLineReader('tetris.sym');
-var game_json = require('./tetris.gb.js');
+var LineByLineReader = require('line-by-line');
 
 let current_category = '';
 const BANK_SIZE=0x4000;
@@ -9,10 +7,24 @@ const BANK_SIZE=0x4000;
 var non_rom_labels = {};
 var rom_labels={};
 
-lr.on('error', function (err) {
-	// 'err' contains error object
-});
+const addSymbolsToGameJson = require('./addSymbolsToGameJson.js');
 
+module.exports.parseSymFiles = function() {
+    const lr = new LineByLineReader('./tetris/tetris.sym');
+    lr.on('error', handle_dot_sym_parsing_error);
+    lr.on('line', handle_dot_sym_file_line);
+    lr.on('end', end_of_dot_sym_file);
+}
+
+function handle_dot_sym_parsing_error(err) {
+    console.error("Error parsing .sym file",err);
+}
+
+
+
+//
+//
+//
 function parse_rom_address(hex_address_with_bank) {
     var components_of_address = _.split(hex_address_with_bank,':');
     var bank_number = +components_of_address[0];
@@ -32,6 +44,9 @@ function parse_rom_address(hex_address_with_bank) {
     return {memory_type:"ROM",addr:full_rom_address};
 }
 
+//
+//
+//
 function parse_label(line) {
     var components_of_line = _.split(line,' ');
     var rom_address = parse_rom_address(components_of_line[0]);
@@ -47,7 +62,7 @@ function parse_label(line) {
 
 }
 
-lr.on('line', function (line) {
+function handle_dot_sym_file_line(line) {
     if (_.startsWith(line,';')) return;
     if (line === '') return;
     if (_.startsWith(line,'[')) {
@@ -58,44 +73,10 @@ lr.on('line', function (line) {
         parse_label(line);
         return;
     }
-    //console.log(current_category,"::",line)
-	// 'line' contains the current line without the trailing newline character.
-});
+}
 
-lr.on('end', function () {
-	// All lines are read, file is closed now.
-    add_labels_to_json();
-});
-
-function add_labels_to_json() {
-    //console.log('add labels to json');
-    _.each(game_json,function(value,addr_range) {
-        var range = _.split(addr_range,"-");
-        var min = range[0];
-        var max = range[1];
-        //var array_of_addr_in_range = _.range(min,max);
-        //game_json[addr_range].labels = [];
-        //console.log(min,max);
-        for (var i=min;i<=max;i++) {
-        if (rom_labels[i]) {
-            if (!game_json[addr_range].labels) {
-                game_json[addr_range].labels = []
-            }
-            game_json[addr_range].labels.push(rom_labels[i]);
-        }
-        }
-
-        // _.each(array_of_addr_in_range, function(addr) {
-        //     if (rom_labels[addr]) {
-        //         //console.log(rom_labels[addr]);
-        //         game_json[addr_range].labels.push(rom_labels[addr]);
-        //     }
-        // });
-        //var labels_in_range = _.filter(rom_labels, function(o) { return !o.active; });
-
-        //console.log(value.labels);
-    })
-    //console.log(JSON.stringify(game_json,null,4));
-    console.log(JSON.stringify(rom_labels,null,4));
-
+function end_of_dot_sym_file() {
+    // All lines are read, file is closed now.
+    console.log('closed file');
+    addSymbolsToGameJson.add_labels_to_json(rom_labels);
 }
