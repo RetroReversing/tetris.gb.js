@@ -95,5 +95,7 @@ function add_labels_to_json() {
 
         //console.log(value.labels);
     })
-    console.log(JSON.stringify(game_json,null,4));
+    //console.log(JSON.stringify(game_json,null,4));
+    console.log(JSON.stringify(rom_labels,null,4));
+
 }

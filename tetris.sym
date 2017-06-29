@@ -2,7 +2,27 @@
 ; wla symbolic information for "/home/joonas/projects/gekkio/tetris/build/tetris.gb".
 ; All credit for this file goes to reddit user gekkio (https://gekkio.fi/files/rubbish/tetris.sym)
 
+
+
 [labels]
+
+; start common labels
+00:0100 main_entry_point
+00:0104 nintendo_logo
+00:013F manufacturer_code
+00:0143 color_gameboy_flag
+00:0144 new_licensee_code
+00:0146 super_gameboy_flag
+00:0147 cartridge_type
+00:0148 rom_size
+00:0149 ram_size
+00:014A destination_code
+00:014B old_licensee_code
+00:014C mask_rom_version_number
+00:014D header_checksum
+00:014E global_checksum
+; end common labels
+
 00:0028 rst_vec_jumptable
 00:0040 intr_vec_vblank
 00:0048 intr_vec_stat

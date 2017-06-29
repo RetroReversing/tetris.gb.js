@@ -412,6 +412,16 @@
             11,
             137,
             181
+        ],
+        "labels": [
+            "manufacturer_code",
+            "color_gameboy_flag",
+            "new_licensee_code",
+            "super_gameboy_flag",
+            "cartridge_type",
+            "rom_size",
+            "ram_size",
+            "destination_code"
         ]
     },
     "0x150-0x152": {
