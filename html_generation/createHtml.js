@@ -11,7 +11,7 @@ function writeGameHTML(gameName) {
 
     global.document = document;
 
-    var json = require('../'+gameName+'.out.json');
+    var json = require('../'+gameName+'/'+gameName+'.out.json');
     var node = JsonHuman.format(json);
     document.body.appendChild(node);
     console.log(gameName,document.body);
