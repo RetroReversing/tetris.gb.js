@@ -5,3 +5,8 @@ Reverse Engineered Tetris Assembly Code from the Original DMG Gameboy
 ```bash
 gulp deploy
 ```
+
+#TODO
+* Add additional non-banked games
+* Disassembly output of code areas
+* IDA-like graphics of code/data areas (interactive) (svg)

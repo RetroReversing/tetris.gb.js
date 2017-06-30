@@ -20,7 +20,9 @@
     "jsdom": "^11.0.0",
     "json-human": "git+https://github.com/marianoguerra/json.human.js.git#0.1.1",
     "line-by-line": "^0.1.5",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "pixel": "0.0.4",
+    "pixel-to-svg": "0.0.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
