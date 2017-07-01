@@ -1,5 +1,7 @@
 const jsdom = require("jsdom");
 const JsonHuman = require('json-human');
+const fs = require('fs');
+const handlebars = require('handlebars');
 const { JSDOM } = jsdom;
 
 //
@@ -14,6 +16,29 @@ function writeGameHTML(gameName) {
     var json = require('../'+gameName+'/'+gameName+'.out.json');
     var node = JsonHuman.format(json);
     document.body.appendChild(node);
-    console.log(gameName,document.body);
+    //console.log(gameName,document.body);
+    return {table:document.body.innerHTML}
 }
-writeGameHTML('tetris');
+
+function writeToFile(filename, contents, callback) {
+    fs.writeFile(filename, contents, function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+        if (callback)
+        {callback();}
+    });
+}
+
+function populate_template(template, gameName) {
+    var data=writeGameHTML(gameName);
+    var html = template(data);
+    writeToFile('../dist/'+gameName+'.html',html);
+    //console.log('Handlebars:',html)
+}
+
+fs.readFile('./template.html', 'utf-8', function(error, source){
+    var template = handlebars.compile(source);
+    populate_template(template, 'tetris');
+});

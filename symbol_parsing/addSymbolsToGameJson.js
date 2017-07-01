@@ -8,7 +8,8 @@ module.exports.game_json_loop = function(game_json, handle_byte_callback) {
         var max = range[1];
 
         for (var i=min;i<=max;i++) {
-            handle_byte_callback(i,addr_range, game_json[addr_range]);
+            var start_of_new_block=(i===min);
+            handle_byte_callback(i,addr_range, game_json[addr_range],start_of_new_block);
         }
      })
 }

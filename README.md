@@ -10,3 +10,5 @@ gulp deploy
 * Add additional non-banked games
 * Disassembly output of code areas
 * IDA-like graphics of code/data areas (interactive) (svg)
+    - Need to make area clickable like canvas
+    - Need to rotate the svg
