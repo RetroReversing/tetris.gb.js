@@ -1,5 +1,8 @@
 var _ = require('lodash');
+const path = require('path');
+var createHTML = require('../html_generation/createHtml');
 var game_json = require('../tetris/tetris.gb.js');
+const config = require('../config');
 
 module.exports.game_json_loop = function(game_json, handle_byte_callback) {
     _.each(game_json,function(value,addr_range) {
@@ -14,7 +17,7 @@ module.exports.game_json_loop = function(game_json, handle_byte_callback) {
      })
 }
 
-module.exports.add_labels_to_json=function(rom_labels) {
+module.exports.add_labels_to_json=function(rom_labels, gameName) {
 
     function push_labels_to_correct_range(i,addr_range) {
         if (rom_labels[i]) {
@@ -26,7 +29,6 @@ module.exports.add_labels_to_json=function(rom_labels) {
     }
 
     module.exports.game_json_loop(game_json,push_labels_to_correct_range);
-    //console.log('add labels to json');
     _.each(game_json,function(value,addr_range) {
         var range = _.split(addr_range,"-");
         var min = range[0];
@@ -41,7 +43,8 @@ module.exports.add_labels_to_json=function(rom_labels) {
             }
         }
     })
-    //console.log(JSON.stringify(game_json,null,4));
-    console.log(JSON.stringify(rom_labels,null,4));
+
+    const pathToJsonSymbolFile = path.join(config.distDirectory,gameName,'symbols.json')
+    createHTML.writeToFile(pathToJsonSymbolFile, JSON.stringify(rom_labels,null,4));
 
 }

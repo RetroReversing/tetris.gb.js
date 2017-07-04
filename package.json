@@ -4,7 +4,9 @@
   "description": "Reverse Engineered Tetris Assembly Code from the Original DMG Gameboy",
   "main": "parseSymFile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -g browserify-css browser/browser.js -o dist/bundle.js",
+    "watch": "watchify -g browserify-css browser/browser.js -o dist/bundle.js --debug --verbose"
   },
   "repository": {
     "type": "git",
@@ -17,17 +19,26 @@
   },
   "homepage": "https://github.com/amorri40/tetris.gb.js#readme",
   "dependencies": {
+    "clusterize.js": "^0.17.6",
     "handlebars": "^4.0.10",
+    "jquery": "^3.2.1",
     "jsdom": "^11.0.0",
     "json-human": "git+https://github.com/marianoguerra/json.human.js.git#0.1.1",
     "line-by-line": "^0.1.5",
     "lodash": "^4.17.4",
     "pixel": "0.0.4",
     "pixel-to-svg": "0.0.0",
-    "pngjs2": "^2.0.0"
+    "pngjs2": "^2.0.0",
+    "semistandard": "^11.0.0"
   },
   "devDependencies": {
+    "browserify-css": "^0.10.1",
     "gulp": "^3.9.1",
     "gulp-gh-pages": "^0.5.4"
-  }
+  },
+   "browserify-css": {
+        "autoInject": true,
+        "minify": true,
+        "rootDir": "."
+    }
 }

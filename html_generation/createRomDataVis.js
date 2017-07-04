@@ -1,8 +1,11 @@
-var pixel= require('pixel');
-var svg= require('pixel-to-svg');
-var fs = require('fs');
-var PNG = require('pngjs2').PNG;
-var gameJsonHandler = require('../symbol_parsing/addSymbolsToGameJson.js');
+const path = require('path');
+const pixel= require('pixel');
+const svg= require('pixel-to-svg');
+const fs = require('fs');
+const PNG = require('pngjs2').PNG;
+const createHTML = require('./createHtml');
+const gameJsonHandler = require('../symbol_parsing/addSymbolsToGameJson.js');
+const config = require('../config');
 
 global.pixel_columns = [];
 var colour_type_map = {
@@ -31,7 +34,7 @@ function writeGameVis(gameName) {
     gameJsonHandler.game_json_loop(game_json,writeColourToPixelData);
 
     var pixelsAsUInt8Array = new Uint8ClampedArray(global.pixel_columns);
-    var image_path = "../dist/"+gameName+"/romVis.";
+    var image_path = path.join(config.distDirectory,gameName,"/romVis.");
     var image_height = (pixelsAsUInt8Array.length/4)/64+1;
 
     //
@@ -45,12 +48,7 @@ function writeGameVis(gameName) {
     // SVG
     //
     var svgfile = svg.convert({data:pixelsAsUInt8Array,width:64,height:image_height});
-    fs.writeFile(image_path+'svg', svgfile, function(err) {
-        if(err) {
-            return console.log(err);
-        }
-        console.log("The file was saved!");
-    });
+    createHTML.writeToFile(image_path+'svg', svgfile);
 
 }
 module.exports.writeGameVis = writeGameVis;

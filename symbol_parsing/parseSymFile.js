@@ -9,11 +9,11 @@ var rom_labels={};
 
 const addSymbolsToGameJson = require('./addSymbolsToGameJson.js');
 
-module.exports.parseSymFiles = function() {
+module.exports.parseSymFiles = function(gameName) {
     const lr = new LineByLineReader('./tetris/tetris.sym');
     lr.on('error', handle_dot_sym_parsing_error);
     lr.on('line', handle_dot_sym_file_line);
-    lr.on('end', end_of_dot_sym_file);
+    lr.on('end', end_of_dot_sym_file.bind(this,gameName));
 }
 
 function handle_dot_sym_parsing_error(err) {
@@ -57,7 +57,6 @@ function parse_label(line) {
     }
     else {
         rom_labels[rom_address.addr] = label_name;
-        //console.log(rom_address.addr, rom_labels[rom_address.addr]);
     }
 
 }
@@ -75,8 +74,7 @@ function handle_dot_sym_file_line(line) {
     }
 }
 
-function end_of_dot_sym_file() {
+function end_of_dot_sym_file(gameName) {
     // All lines are read, file is closed now.
-    console.log('closed file');
-    addSymbolsToGameJson.add_labels_to_json(rom_labels);
+    addSymbolsToGameJson.add_labels_to_json(rom_labels, gameName);
 }
