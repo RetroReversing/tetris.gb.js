@@ -6,16 +6,17 @@ const handlebars = require('handlebars');
 const { JSDOM } = jsdom;
 const config = require('../config');
 const htmlTemplatesPath= path.join(__dirname,'');
+const assert = require('assert');
 //
 // Uses json-human to write a html file of the rom data from the json
 //
-function writeGameHTML(gameName) {
+function writeGameHTML(gameName, json) {
     const { window } = new JSDOM(`<html></html>`);
     const { document } = (window).window;
 
     global.document = document;
 
-    var json = require('../'+gameName+'/'+gameName+'.out.json');
+    save_game_json_to_dist(gameName, json);
     var node = JsonHuman.format(json);
     document.body.appendChild(node);
     return {table:document.body.innerHTML}
@@ -35,8 +36,9 @@ function writeToFile(filename, contents, callback) {
 }
 module.exports.writeToFile = writeToFile;
 
-function populate_rom_contents_template(template, gameName) {
-    var data=writeGameHTML(gameName);
+function populate_rom_contents_template(template, gameName, json) {
+    assert(Object.keys(json).length>1,"Expected game json to have many keys")
+    var data=writeGameHTML(gameName,json);
     var html = template(data);
     writeToFile(config.distDirectory+gameName+'/romContents.html',html);
 }
@@ -46,7 +48,11 @@ function populate_index_template(template, gameName) {
     writeToFile(path.join(config.distDirectory,gameName,'/index.html'),html);
 }
 
-module.exports.createHTML = function(gameName) {
+function save_game_json_to_dist(gameName, game_json) {
+    writeToFile(path.join(config.distDirectory,gameName,'/game.json'),JSON.stringify(game_json));
+}
+
+module.exports.createHTML = function(gameName,json) {
     fs.readFile(path.join(htmlTemplatesPath,'romcontents.template.html'), 'utf-8', function(error, source){
         if (error)
         {
@@ -54,7 +60,7 @@ module.exports.createHTML = function(gameName) {
             return;
         }
         var template = handlebars.compile(source);
-        populate_rom_contents_template(template, gameName);
+        populate_rom_contents_template(template, gameName, json);
     });
 
     fs.readFile(path.join(htmlTemplatesPath,'template.html'), 'utf-8', function(error, source){

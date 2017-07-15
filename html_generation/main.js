@@ -1,8 +1,8 @@
 const createRomDataVis=require("./createRomDataVis");
 const createHTML=require("./createHTML");
 
-function generateHTMLForGame(gameName) {
-    createRomDataVis.writeGameVis(gameName);
-    createHTML.createHTML(gameName);
+function generateHTMLForGame(gameName,json) {
+    createRomDataVis.writeGameVis(gameName,json);
+    createHTML.createHTML(gameName,json);
 }
 module.exports.generateHTMLForGame = generateHTMLForGame;

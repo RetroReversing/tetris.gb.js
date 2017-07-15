@@ -1,5 +1,7 @@
-var _ = require('lodash');
-var LineByLineReader = require('line-by-line');
+const _ = require('lodash');
+const assert = require('assert');
+const LineByLineReader = require('line-by-line');
+const addSymbolsToGameJson = require('./addSymbolsToGameJson.js');
 
 let current_category = '';
 const BANK_SIZE=0x4000;
@@ -7,13 +9,12 @@ const BANK_SIZE=0x4000;
 var non_rom_labels = {};
 var rom_labels={};
 
-const addSymbolsToGameJson = require('./addSymbolsToGameJson.js');
 
-module.exports.parseSymFiles = function(gameName) {
-    const lr = new LineByLineReader('./tetris/tetris.sym');
+module.exports.parseSymFiles = function(gameName,game_json) {
+    const lr = new LineByLineReader('./'+gameName+'/'+gameName+'.sym');
     lr.on('error', handle_dot_sym_parsing_error);
     lr.on('line', handle_dot_sym_file_line);
-    lr.on('end', end_of_dot_sym_file.bind(this,gameName));
+    lr.on('end', end_of_dot_sym_file.bind(this,gameName, game_json));
 }
 
 function handle_dot_sym_parsing_error(err) {
@@ -74,7 +75,9 @@ function handle_dot_sym_file_line(line) {
     }
 }
 
-function end_of_dot_sym_file(gameName) {
+
+function end_of_dot_sym_file(gameName,game_json) {
     // All lines are read, file is closed now.
-    addSymbolsToGameJson.add_labels_to_json(rom_labels, gameName);
+    assert(Object.keys(game_json).length > 1, "Expect game_json to be populated");
+    addSymbolsToGameJson.add_labels_to_json(rom_labels, gameName, game_json);
 }
