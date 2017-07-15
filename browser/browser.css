@@ -1,0 +1,42 @@
+.addrListElement {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.addrListElement:hover {
+    background: aliceblue;
+
+}
+
+#container {}
+
+.clusterize {
+    width:40vw;
+    display: inline-block;
+}
+
+#romData {
+    width:50vw;
+    display: inline-block;
+    position:absolute;
+    top:0px;
+}
+
+#entireListView {
+    width:100vw;
+    position:relative;
+}
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    opacity: .4;
+    background: #98F398;
+}
+
+.progress-parent {
+    position: relative;
+}

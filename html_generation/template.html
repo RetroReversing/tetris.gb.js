@@ -4,42 +4,81 @@
     </head>
 
     <body>
-        <canvas id="myCanvas">
-        </canvas>
-        <div id="romNavigation">
-            <!--<img src="tetris.romVis.svg" type="image/svg+xml"/>-->
-            <img id="vis" src="romVis.png" type="image/png"/>
-        </div>
-    <div>
+
+  <nav class="nav-extended">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Tetris.gb</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sounds</a></li>
+        <li><a href="badges.html">Graphics</a></li>
+        <li><a href="collapsible.html">Maps</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="sass.html">Sounds</a></li>
+        <li><a href="badges.html">Graphics</a></li>
+        <li><a href="collapsible.html">Maps</a></li>
+      </ul>
+    </div>
+    <div class="nav-content">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a href="#test1">Bank 1</a></li>
+        <li class="tab"><a class="active" href="#test2">Bank 2</a></li>
+        <li class="tab disabled"><a href="#test3">VRAM</a></li>
+        <li class="tab disabled"><a href="#test4">WRAM</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!--<div id="test1" class="col s12">Test 1</div>
+  <div id="test2" class="col s12">Test 2</div>
+  <div id="test3" class="col s12">Test 3</div>
+  <div id="test4" class="col s12">Test 4</div>-->
+
+
+        <!--<canvas id="myCanvas">
+        </canvas>-->
+
+    <!--<div>
         <button>Load contents</button>
         <iframe data-src="romContents.html"></iframe>
-    </div>
-
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>-->
-
+    </div>-->
 
     <script type='text/javascript' src="/romMap.client.js"></script>
 
 
-    <!--HTML-->
+
+<div id="entireListView">
+    <!--<div>
+        <img src="tetris.romVis.svg" type="image/svg+xml"/>
+    </div>-->
     <div class="clusterize">
-    <table>
-        <thead>
-        <tr>
-            <th>Headers</th>
-        </tr>
-        </thead>
-    </table>
-    <div id="scrollArea" class="clusterize-scroll">
         <table>
-        <tbody id="contentArea" class="clusterize-content">
-            <tr class="clusterize-no-data">
-            <td>Loading data…</td>
+            <thead>
+            <tr>
+                <th>Rom Contents</th>
             </tr>
-        </tbody>
+            </thead>
         </table>
+        <div id="scrollArea" class="clusterize-scroll">
+
+            <div id="contentArea" class="clusterize-content">
+                <div class="clusterize-no-data">
+                <p>Loading data…</p>
+                </div>
+            </div>
+        </div>
     </div>
+    <div id="romData">
+        <div id="container"></div>
     </div>
+</div>
+
+    <div id="root"></div>
+
+    <div id="romNavigation">
+            <!--<img src="tetris.romVis.svg" type="image/svg+xml"/>-->
+            <img id="vis" src="romVis.png" type="image/png"/>
+        </div>
 
     <script type='text/javascript' src="/bundle.js"></script>
 
