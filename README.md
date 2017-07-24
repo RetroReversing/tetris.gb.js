@@ -17,5 +17,4 @@ gulp deploy
     - Need to rotate the svg
 
 ## CSS & HTML
-* Use materialize-css to make the interface look more presentable
 * Add rom box-art (api?)

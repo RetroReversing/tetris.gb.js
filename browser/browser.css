@@ -15,6 +15,10 @@
     display: inline-block;
 }
 
+.clusterize-scroll {
+    max-height:80vh;
+}
+
 #romData {
     width:50vw;
     display: inline-block;
@@ -39,4 +43,16 @@
 
 .progress-parent {
     position: relative;
+}
+
+.input-field {
+    margin:0px
+}
+
+th {
+    padding:0px;
+}
+
+.select-wrapper input.select-dropdown {
+    margin:0px
 }

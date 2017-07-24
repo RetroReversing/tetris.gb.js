@@ -5,6 +5,7 @@
   "main": "parseSymFile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "cd dist && serve",
     "build": "browserify -g browserify-css browser/browser.js -o dist/bundle.js -t [ babelify --presets [ es2015 react ] ]",
     "watch": "watchify -g browserify-css browser/browser.js -o dist/bundle.js --debug --verbose -t [ babelify --presets [ es2015 react ] ]"
   },

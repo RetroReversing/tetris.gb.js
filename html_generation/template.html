@@ -5,6 +5,8 @@
 
     <body>
 
+
+
   <nav class="nav-extended">
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">Tetris.gb</a>
@@ -55,7 +57,37 @@
         <table>
             <thead>
             <tr>
-                <th>Rom Contents</th>
+                 <th>
+                     <div class="input-field col s12">
+                        <select id="data-filter" multiple>
+                            <option value="" disabled selected>All Data</option>
+                            <option value="bank1">Bank 1</option>
+                            <option value="bank2">Bank 2</option>
+                            <option value="vram">VRAM</option>
+                            <option value="wram">WRAM</option>
+                            <option value="OAM">OAM</option>
+                            <option value="hram">HRAM</option>
+                            <option value="interupts">Interupts</option>
+                            <option value="labelled">Labelled</option>
+                            <option value="nonlabelled">Non-Labelled</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="input-field col s12">
+                        <select id="data-type-filter" multiple>
+                            <option value="" disabled selected>All Types</option>
+                            <option value="code">Code</option>
+                            <option value="graphics">Graphics</option>
+                            <option value="bgmap">BgMap</option>
+                            <option value="sound">Sounds</option>
+                            <option value="OAM">OAM</option>
+                            <option value="data">Data</option>
+                            <option value="unknown">Unknown</option>
+                        </select>
+                    </div>
+                </th>
+
             </tr>
             </thead>
         </table>
@@ -70,17 +102,19 @@
     </div>
     <div id="romData">
         <div id="container"></div>
+        <div id="romNavigation">
+            <!--<img src="tetris.romVis.svg" type="image/svg+xml"/>-->
+            <img id="vis" src="romVis.png" type="image/png"/>
+        </div>
     </div>
 </div>
 
     <div id="root"></div>
 
-    <div id="romNavigation">
-            <!--<img src="tetris.romVis.svg" type="image/svg+xml"/>-->
-            <img id="vis" src="romVis.png" type="image/png"/>
-        </div>
+
 
     <script type='text/javascript' src="/bundle.js"></script>
+    <script src="/materialize.min.js"></script>
 
     </body>
 </html>
