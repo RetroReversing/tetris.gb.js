@@ -7,7 +7,6 @@ const $ = require('jquery');
 window.$ = $;
 
 require('../node_modules/clusterize.js/clusterize.css');
-// require('./cluster.jsx');
 
 require('materialize-css/dist/css/materialize.min.css');
 require('./browser.css');

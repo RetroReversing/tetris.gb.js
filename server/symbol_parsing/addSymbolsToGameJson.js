@@ -2,6 +2,7 @@ var _ = require('lodash');
 const path = require('path');
 var createHTML = require('../html_generation/createHtml');
 const config = require('../config');
+const fs = require('fs');
 
 module.exports.game_json_loop = function (game_json, handle_byte_callback) {
   _.each(game_json, function (value, addr_range) {
@@ -92,7 +93,13 @@ module.exports.add_labels_to_json = function (rom_labels, gameName, game_json) {
     splitUpBasedOnRomLabels(min, max, addr_range);
   });
 
-  const pathToJsonSymbolFile = path.join(config.distDirectory, gameName, 'symbols.json');
+var gameDistDirectory = path.join(config.distDirectory, gameName);
+
+if (!fs.existsSync(gameDistDirectory)){
+    fs.mkdirSync(gameDistDirectory);
+}
+
+  const pathToJsonSymbolFile = path.join(gameDistDirectory, 'symbols.json');
   createHTML.writeToFile(pathToJsonSymbolFile, JSON.stringify(rom_labels, null, 4));
 
   function compareObjectKeyByAddresses (gameJson, key1, key2) {
@@ -107,7 +114,12 @@ module.exports.add_labels_to_json = function (rom_labels, gameName, game_json) {
     return ordered;
   }
 
-  const pathToGameJsonFile = path.join(config.distDirectory, gameName, 'game.json');
+
+
+
+
+
+  const pathToGameJsonFile = path.join(gameDistDirectory, 'game.json');
   var orderedJson = sortJsonObjectKeys(game_json);
   createHTML.writeToFile(pathToGameJsonFile, JSON.stringify(orderedJson, null, 4));
 };

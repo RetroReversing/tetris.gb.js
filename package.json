@@ -4,7 +4,8 @@
   "description": "Reverse Engineered Tetris Assembly Code from the Original DMG Gameboy",
   "main": "parseSymFile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-server": "cd server && mocha -w --compilers js:babel-core/register ./**/*.spec.js",
+    "test-browser": "mochify --watch",
     "serve": "cd dist && serve",
     "build": "browserify -g browserify-css browser/browser.js -o dist/bundle.js -t [ babelify --presets [ es2015 react ] ]",
     "watch": "watchify -g browserify-css browser/browser.js -o dist/bundle.js --debug --verbose -t [ babelify --presets [ es2015 react ] ]"
@@ -22,6 +23,7 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "clusterize.js": "^0.17.6",
+    "es6-deferred": "^1.3.0",
     "handlebars": "^4.0.10",
     "jquery": "^3.2.1",
     "jsdom": "^11.0.0",
@@ -46,16 +48,36 @@
     "semistandard": "^11.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^20.0.4",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-jest": "^20.0.3",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify-css": "^0.10.1",
     "gulp": "^3.9.1",
-    "gulp-gh-pages": "^0.5.4"
+    "gulp-gh-pages": "^0.5.4",
+    "jest": "^20.0.4",
+    "jest-webpack": "^0.3.0",
+    "mochify": "^3.3.0",
+    "regenerator-runtime": "^0.10.5",
+    "ts-jest": "^20.0.7",
+    "typescript": "^2.4.2",
+    "webpack": "^3.3.0"
   },
   "browserify-css": {
     "autoInject": true,
     "minify": true,
     "rootDir": "."
+  },
+  "semistandard": {
+    "plugins": [
+      "jasmine"
+    ],
+    "ignore": [
+      "/dist/"
+    ]
   }
 }
