@@ -1,7 +1,17 @@
 # tetris.gb.js
 Reverse Engineered Tetris Assembly Code from the Original DMG Gameboy
 
-# Deploy to Github pages branch
+## Start up development server
+```
+npm run serve
+```
+
+## Start up server testing
+```
+npm run test-server
+```
+
+## Deploy to Github pages branch
 ```bash
 gulp deploy
 ```

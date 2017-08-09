@@ -25,6 +25,7 @@
     "clusterize.js": "^0.17.6",
     "es6-deferred": "^1.3.0",
     "handlebars": "^4.0.10",
+    "immutable": "^3.8.1",
     "jquery": "^3.2.1",
     "jsdom": "^11.0.0",
     "json-human": "git+https://github.com/marianoguerra/json.human.js.git#0.1.1",
