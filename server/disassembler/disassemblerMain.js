@@ -1,18 +1,8 @@
+import {one_byte_instructions, two_byte_instructions, three_byte_instructions} from './disassemblerInstructions';
 const { Map, List, Seq } = require('immutable')
 const _ = require('lodash');
 
-const one_byte_instructions = {
-    0x00: 'NOP',
-    0x0c: 'INC C'
-}
 
-const two_byte_instructions = {
-    0x18: 'JR'
-}
-
-const three_byte_instructions = {
-    0xC3: 'JP'
-}
 
 function handleTwoByteInstructions(byteValue, operandByte) {
     const instruction = two_byte_instructions[byteValue];
@@ -39,6 +29,7 @@ function disassembleByte(byteValue,key,byteArray) {
     {
         return handleThreeByteInstructions(opcode, operand, byteValue[2]);
     }
+
 
 }
 

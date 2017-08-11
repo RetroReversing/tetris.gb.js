@@ -23,6 +23,11 @@ describe('Disasemble Rom', function() {
         assert.equal(resultingAssembly[0], 'JR $AE')
     })
 
+    it('should support multiple 2-byte instructions', function() {
+        const resultingAssembly = DisassembleBytes([0xE6, 0xBE,0xF6, 0xF0]);
+        assert.deepEqual(resultingAssembly, [ 'AND $BE', 'OR $F0' ])
+    })
+
     it('should support 3-byte jump instructions', function() {
         const resultingAssembly = DisassembleBytes([0xC3, 0xD3, 0x64]);
         assert.equal(resultingAssembly[0], 'JP $64D3')
@@ -31,6 +36,11 @@ describe('Disasemble Rom', function() {
     it('should support 3-byte jump instructions to location $69A5', function() {
         const resultingAssembly = DisassembleBytes([0xC3, 0xA5, 0x69]);
         assert.equal(resultingAssembly[0], 'JP $69A5')
+    })
+
+    it('should support 3 byte CALL instruction',function() {
+        const resultingAssembly = DisassembleBytes([0xCD, 0x5E, 0x6D]);
+        assert.equal(resultingAssembly[0], 'CALL $6D5E')
     })
 
     it('should support 2-byte jump return instruction followed by a NOP', function() {
