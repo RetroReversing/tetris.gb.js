@@ -1,8 +1,11 @@
-import {one_byte_instructions, two_byte_instructions, three_byte_instructions} from './disassemblerInstructions';
+import {one_byte_instructions, two_byte_instructions, three_byte_instructions, cb_prefixed_ops} from './disassemblerInstructions';
 const { Map, List, Seq } = require('immutable')
 const _ = require('lodash');
 
-
+function handleCBPrefixedInstructions(CBByte, actualInstruction) {
+    if (CBByte !== 0xCB) return 'Error value not CB';
+    return cb_prefixed_ops[actualInstruction]
+}
 
 function handleTwoByteInstructions(byteValue, operandByte) {
     const instruction = two_byte_instructions[byteValue];
@@ -21,6 +24,9 @@ function disassembleByte(byteValue,key,byteArray) {
     if (one_byte_instructions[opcode])
          return one_byte_instructions[opcode];
     const operand = byteValue[1];
+    if (opcode === 0xCB) {
+        return handleCBPrefixedInstructions(opcode,operand)
+    }
     if (two_byte_instructions[opcode])
     {
         return handleTwoByteInstructions(opcode, operand );
@@ -30,10 +36,10 @@ function disassembleByte(byteValue,key,byteArray) {
         return handleThreeByteInstructions(opcode, operand, byteValue[2]);
     }
 
-
 }
 
 function getNumberOfBytesForInstruction(opcode) {
+    if (opcode === 0xCB) return 2;
     if (one_byte_instructions[opcode])
          return 1;
     if (two_byte_instructions[opcode])

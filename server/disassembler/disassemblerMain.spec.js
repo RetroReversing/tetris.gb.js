@@ -48,6 +48,14 @@ describe('Disasemble Rom', function() {
         assert.deepEqual(resultingAssembly, ['JR $AE','NOP'])
     })
 
+    it('should support CB Prefix instructions ', function() {
+        const resultingAssembly = DisassembleBytes([0xCB, 0x40]);
+        assert.deepEqual(resultingAssembly, ['BIT 0,B'])
+    })
+
+    //
+    // Test Conversion to Hex
+    //
     it('should convert 174 to hex value $AE', function() {
         const hexResult = convertToHex(174);
         assert.equal(hexResult, '$AE');
