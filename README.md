@@ -4,6 +4,7 @@ Reverse Engineered Tetris Assembly Code from the Original DMG Gameboy
 ## Start up development server
 ```
 npm run serve
+npm run watch
 ```
 
 ## Start up server testing
